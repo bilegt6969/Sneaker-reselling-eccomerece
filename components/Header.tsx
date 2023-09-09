@@ -1,4 +1,7 @@
-import React, { use, useState } from "react";
+'use client'
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from 'axios';
 import {
   MagnifyingGlassIcon,
   ShoppingBagIcon,
@@ -9,10 +12,17 @@ import {
   ChevronLeftIcon
 } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
-import Logo from "@/img/Logo.png";
-import Image from "next/image";
+import Logo from "@/img/logo.png";
+import Image from "next/image"; 
 
-function Header() {
+
+
+
+function Header({ }) {
+  const [query1, setQuery1] = useState(''); // Input field value
+
+
+  
   const [isNavBarOpen, setisNavBarOpen] = useState(false);
 
   const navbar = () => {
@@ -60,10 +70,11 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
+
   return (
-<div className="sticky top-0 mt-[-8rem] z-[1000000]">    
-      <div className="fixed flex flex-col w-full sm:pb-[0rem] md:pb-[0rem] lg:pb-[0rem] pb-[1rem] pt-10   bg-white">
-      <div className="flex items-center justify-between  lg:space-x-[5rem] md:space-x-[5rem] sm:space-x-[5rem] sm:mx-10 sm:ml-[-2rem] md:mx-10 md:ml-[-2rem] lg:mx-10 lg:ml-[-2rem] font-sans">
+<div className="sticky top-0 z-[30]"> 
+      <div className=" flex flex-col w-full sm:pb-[0rem] md:pb-[0rem] lg:pb-[0rem] pb-[1rem] pt-3    bg-white">
+      <div className="flex items-center justify-between  lg:space-x-[5rem] md:space-x-[5rem] sm:space-x-[5rem] sm:mx-10 sm:ml-[-2rem] md:mx-10 md:ml-[-2rem] lg:mx-10 ml-[1rem] font-sans">
         {/* Hamburger menu */}
         <div className="lg:hidden ml-[1rem] space-x-5 shrink-0 flex md:hidden sm:hidden">
           <button className="focus:outline-none z-10" onClick={toggleMenu}>
@@ -77,44 +88,50 @@ function Header() {
           <div className="items-center flex">
             <button className="focus:outline-none z-10" onClick={toggleNav}>
               {isOngorhoi ? (
-                <XMarkIcon className="flex text-white ml-[0rem] w-8 h-8" />
+                <XMarkIcon className="flex text-white ml-[-0.5rem] transition-all w-8 h-8" />
               ) : (
-                <MagnifyingGlassIcon className="flex z-10 text-black   w-7 h-7" />
+                <MagnifyingGlassIcon className="flex z-10 text-black   w-6 h-6" />
               )}
             </button>
           </div>
         </div>
 
         {/* Logo */}
-        <div className="justify-center">
-          <Image
+        <div className="z-[50] justify-center">
+          <a href="../"><Image
+          src={Logo}
             alt="logo"
-            className="lg:w-[7rem] md:w-[7rem] sm:w-[7rem] w-[6rem]"
-            src={Logo}
-            objectFit="contain"
-            width={130}
+            className="font-semibold text-2xl lg:w-[6rem] md:w-[7rem] sm:w-[7rem] w-[4rem]"
+            width={100}
             height={10}
-          />
+         /></a>
+          
         </div>
 
         {/* SearchBar */}
-        <div className="hidden sm:flex relative flex-grow items-center">
+        <div className="z-[50] hidden sm:flex relative flex-grow items-center">
+          
+
           <input
-            className="w-full focus:outline-none flex-shrink outline-none h-10 px-1 py-2 rounded-full font-sans border text-black border-black pl-14"
+            className="w-full pl-[3rem] focus:outline-none flex-shrink outline-none h-10 px-1 py-2 rounded-xl font-sans border text-black border-black"
             type="text"
             placeholder="Search..."
+            value={query1}
+            onChange={(e) => setQuery1(e.target.value)}
           />
-          <div className="absolute left-[3px] top-[1.5px] p-[6px] rounded-full">
+                  <button      
+>
             <MagnifyingGlassIcon
-              className="flex text-black"
-              width={"24"}
-              height={"24"}
+              className="z-[50] absolute top-[0.6rem] items-center left-3 cursor-pointer  transition-all flex text-black"
+              width={"20"}
+              height={"20"}
             />
-          </div>
+            </button>
+
         </div>
 
         {/* RightSide */}
-        <div className="flex mr-10 space-x-5">
+        <div className="z-[50] flex mr-10 space-x-5">
           <ShoppingBagIcon className="hover:text-gray-400 transition duration-150 w-6 h-6" />
           <UserIcon className="hover:text-gray-400 transition duration-150 hidden sm:flex w-6 h-6" />
           <HeartIcon className="hover:text-gray-400 transition duration-150 w-6 h-6 mr-[2rem] shrink-0 flex" />
@@ -133,12 +150,18 @@ function Header() {
             <input
               className="bg-transparent border-white p-6 border-1 border text-3xl text-white h-10 w-[20rem] outline-none rounded-full focus:outline-none"
               type="text"
+              value={query1}
+          onChange={(e) => setQuery1(e.target.value)}
             />
+            <button
+>
             <MagnifyingGlassIcon
               className="flex text-white"
               width={"24"}
               height={"24"}
             />
+            </button>
+            
           </div>
         </motion.div>
         {/*Shoes*/}
@@ -537,7 +560,7 @@ className="my-1 text-white subpixel-antialiased text-[2rem] font-sans">         
         </motion.div>
       </div>
       {/*under navbar*/}
-      <div className="bg-gray-200 shrink-0 hidden sm:flex p-2 font-light mt-[1rem] justify-center text-xl lg:space-x-[50px] md:space-x-[30px] sm:space-x-[15px] items-center text-black ">
+       <div className="z-[50]  bg-gray-100 font-normal border-t-[0.1rem] border-gray-300 shrink-0 hidden sm:flex p-2 mt-[1rem] justify-center text-xl lg:space-x-[50px] md:space-x-[30px] sm:space-x-[15px] items-center text-black ">
         <li className="list-none">
           <p className="hover:text-gray-400  cursor-pointer">Sneakers</p>
         </li>
@@ -553,10 +576,17 @@ className="my-1 text-white subpixel-antialiased text-[2rem] font-sans">         
         <li className="list-none">
           <p className="hover:text-gray-400  cursor-pointer">Collectibles</p>
         </li>
+      
       </div>
+    
+      
     </div>
+        
     </div>
+    
   );
+
 }
+
 
 export default Header;

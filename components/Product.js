@@ -20,8 +20,10 @@ export default function Product({ pet }) {
       <div className="cursor-pointer">
         {pet.photo && (
           <Image
+          width={600}
+          height={600}
             className="h-auto "
-            src={urlFor(pet.photo).width(600).url()}
+            src={urlFor(pet.photo).url()}
             alt={pet.title}
           />
         )}
