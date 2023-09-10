@@ -3,19 +3,22 @@ import { visionTool } from '@sanity/vision';
 import { deskTool } from 'sanity/desk';
 import { schemaTypes } from './schemas';
 
-const devOnlyPlugins: SchemaType[] = [];
 
 const config = defineConfig({
+  basePath:"/studio",
   name: 'default',
   title: 'salmon-cod',
   projectId: 'assvtyt4',
   dataset: 'production',
-  plugins: [deskTool(), visionTool(), ...(isDev ? devOnlyPlugins : [])],
-  parts: [
-    // Define your schema types here
-    // For example:
-    // { name: 'mySchemaType', type: 'document', title: 'My Schema Type' }
-  ],
+  plugins: [deskTool(), visionTool()],
+  schema: {
+      types: schemaTypes,
+    },studio:{
+      components:{
+        
+      }
+
+    },
 });
 
 export default config;
