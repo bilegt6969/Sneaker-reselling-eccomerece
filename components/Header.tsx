@@ -12,8 +12,8 @@ import {
   ChevronLeftIcon
 } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
-import Logo from "@/img/logo.png";
 import Image from "next/image"; 
+import Logo from '../img/Logo.png'
 
 
 
